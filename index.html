@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f6f7f9">
+  <title>16コマ画像メーカー</title>
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-title" content="16コマ作成">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./app-icon.css">
+</head>
+<body>
+<main>
+  <header>
+    <h1><img class="app-mark" src="./icon.svg" alt="">16コマ画像メーカー</h1>
+    <p>4×4の連続ポーズ画像を作るための指示文を作成します。</p>
+  </header>
+
+  <section class="card" aria-labelledby="reference-title">
+    <h2 id="reference-title">1. キャラクター画像</h2>
+    <p class="hint">使うキャラクター画像を、あとでChatGPTにも一緒に送ります。</p>
+    <button id="chooseImage" class="choose" type="button">参考画像を選ぶ</button>
+    <input id="imageInput" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+    <div id="imageSelected" class="image-selected" hidden><img id="imagePreview" alt="選んだ参考画像"><span>参考画像を選びました</span></div>
+  </section>
+
+  <section class="card" aria-labelledby="motion-title">
+    <h2 id="motion-title">2. 作りたい動き</h2>
+    <label for="character">キャラクターの名前・説明</label>
+    <input id="character" type="text" placeholder="例：ちぇぶちゃん" autocomplete="off">
+    <label for="motion">動き</label>
+    <textarea id="motion" rows="3" placeholder="例：正面を向いたまま、右手をゆっくり上げて小さく3回振る"></textarea>
+    <p class="tip">動きは、最初から最後までの順番を書くと自然につながります。</p>
+  </section>
+
+  <section class="card" aria-labelledby="look-title">
+    <h2 id="look-title">3. 見た目の指定</h2>
+    <label for="background">背景</label>
+    <select id="background"><option value="白い無地背景">白</option><option value="透明背景">透明</option><option value="指定の背景">指定する</option></select>
+    <div id="backgroundOtherWrap" hidden><label for="backgroundOther">背景の説明</label><input id="backgroundOther" type="text" placeholder="例：淡い青の無地背景"></div>
+    <label for="style">絵の雰囲気</label>
+    <input id="style" type="text" placeholder="例：やわらかい3Dぬいぐるみ風">
+    <label for="keep">変えない部分</label>
+    <textarea id="keep" rows="3" placeholder="例：顔、服装、色、体型、キャラクターの大きさ、カメラ位置"></textarea>
+    <label for="avoid">避けたいこと</label>
+    <textarea id="avoid" rows="3" placeholder="例：別のキャラクター、服装変更、文字、背景の小物、途中で大きさが変わること"></textarea>
+  </section>
+
+  <button id="make" type="button" class="make">16コマ用プロンプトを作る</button>
+
+  <section id="result" class="result" hidden aria-labelledby="result-title">
+    <h2 id="result-title">完成版プロンプト</h2>
+    <p class="result-note">この文章をコピーし、参考画像と一緒にChatGPT Imagesへ送ってください。</p>
+    <textarea id="prompt" readonly rows="18" aria-label="完成版プロンプト"></textarea>
+    <button id="copyPrompt" type="button" class="copy">完成版をコピー</button>
+  </section>
+</main>
+<script src="./app.js"></script>
+</body>
+</html>
